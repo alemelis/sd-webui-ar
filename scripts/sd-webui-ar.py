@@ -37,7 +37,7 @@ class AspectRatioScript(scripts.Script):
         if not aspect_ratios_file.exists():
             return
 
-        with open(aspect_ratios_file, 'r') as f:
+        with open(aspect_ratios_file, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             
         for line in lines:
