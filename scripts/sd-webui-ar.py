@@ -10,13 +10,13 @@ aspect_ratios_dir = scripts.basedir()
 
 
 class ResButton(ToolButton):
-    def __init__(self, res=512, **kwargs):
+    def __init__(self, res=(512, 512), **kwargs):
         super().__init__(**kwargs)
 
-        self.res = res
+        self.w, self.h = res 
 
-    def reset(self, w, h):
-        return [self.res, self.res]
+    def reset(self):
+        return [self.w, self.h]
 
 
 class ARButton(ToolButton):
@@ -40,7 +40,7 @@ class ARButton(ToolButton):
         return [self.res, self.res]
 
 
-def parse_file(filename):
+def parse_aspect_ratios_file(filename):
     labels, values, comments = [], [], []
     file = Path(aspect_ratios_dir, filename)
 
@@ -60,7 +60,7 @@ def parse_file(filename):
         label, value = line.strip().split(",")
         comment = ""
         if "#" in value:
-            value, comment = value.split("#")[0]
+            value, comment = value.split("#")
 
         labels.append(label)
         values.append(value)
@@ -69,13 +69,43 @@ def parse_file(filename):
     return labels, values, comments
 
 
+def parse_resolutions_file(filename):
+    labels, values, comments = [], [], []
+    file = Path(aspect_ratios_dir, filename)
+
+    if not file.exists():
+        return labels, values, comments
+
+    with open(file, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    if not lines:
+        return labels, values, comments
+
+    for line in lines:
+        if line.startswith("#"):
+            continue
+
+        label, width, height= line.strip().split(",")
+        comment = ""
+        if "#" in height:
+            height, comment = height.split("#")
+            
+        resolution = (width, height)
+
+        labels.append(label)
+        values.append(resolution)
+        comments.append(comment)
+
+    return labels, values, comments
+
 class AspectRatioScript(scripts.Script):
     def read_aspect_ratios(self):
         (
             self.aspect_ratio_labels,
             aspect_ratios,
             self.aspect_ratio_comments,
-        ) = parse_file("aspect_ratios.txt")
+        ) = parse_aspect_ratios_file("aspect_ratios.txt")
         self.aspect_ratios = list(map(float, aspect_ratios))
         
         # TODO: check for duplicates
@@ -86,8 +116,8 @@ class AspectRatioScript(scripts.Script):
         # see https://github.com/alemelis/sd-webui-ar/issues/5
 
     def read_resolutions(self):
-        self.res_labels, res, self.res_comments = parse_file("resolutions.txt")
-        self.res = list(map(int, res))
+        self.res_labels, res, self.res_comments = parse_resolutions_file("resolutions.txt")
+        self.res = [list(map(int, r)) for r in res]
 
     def title(self):
         return "Aspect Ratio picker"
@@ -125,7 +155,6 @@ class AspectRatioScript(scripts.Script):
                 for b in btns:
                     b.click(
                         b.reset,
-                        inputs=[self.w, self.h],
                         outputs=[self.w, self.h],
                     )
 

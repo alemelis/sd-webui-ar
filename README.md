@@ -9,12 +9,12 @@ Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://
 
 Here's how the UI looks like after installing this extension
 
-![](https://user-images.githubusercontent.com/4661737/216922488-fe484735-af16-477f-bd2d-a8606b89a082.png)
+![](https://user-images.githubusercontent.com/4661737/216992603-7ca1b3d0-6317-4579-a4b0-68991e8ced45.png)
 
 ## Usage
 
 - Click on the aspect ratio button you want to set. In the case of an aspect ratio greater than 1, the script fixes the width and changes the height. Whereas if the aspect ratio is smaller than 1, the width changes while the height is fixed.
-- Reset image resolution by clicking on one of the buttons on the second row. This will set a 1:1 aspect ratio.
+- Reset image resolution by clicking on one of the buttons on the second row.
 
 ### Configuration
 
@@ -51,12 +51,12 @@ Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. The f
 Note the `#` marking the line as a comment, i.e. the extension is not reading that line. To use a custom value, un-comment the relative line by removing the starting `#`. 
 A custom aspect ratio is defined as `button-label, aspect-ratio-value # comment`. The `aspect-ratio-value` must be a number (either `float` or `int`) while the `# comment` is optional.
 
-Resolutions are defined in the same into `resolutions.txt` file. By default this reads
+Resolutions are defined inside `resolutions.txt` file. By default this reads
 
 ```
-# 416, 416
-512, 512
-# 768, 768
+1, 512, 512 # 1:1 square
+2, 768, 512 # 3:2 landscape
+3, 403, 716 # 9:16 portrait 
 ```
 
-thus only 416x416 preset is loaded onto the webui.
+The format to be used is `button-label, width, height, # optional comment`. As before, lines starting with `#` will be ignored.
