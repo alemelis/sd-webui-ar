@@ -13,7 +13,7 @@ class ResButton(ToolButton):
     def __init__(self, res=(512, 512), **kwargs):
         super().__init__(**kwargs)
 
-        self.w, self.h = res 
+        self.w, self.h = res
 
     def reset(self):
         return [self.w, self.h]
@@ -86,11 +86,11 @@ def parse_resolutions_file(filename):
         if line.startswith("#"):
             continue
 
-        label, width, height= line.strip().split(",")
+        label, width, height = line.strip().split(",")
         comment = ""
         if "#" in height:
             height, comment = height.split("#")
-            
+
         resolution = (width, height)
 
         labels.append(label)
@@ -98,6 +98,7 @@ def parse_resolutions_file(filename):
         comments.append(comment)
 
     return labels, values, comments
+
 
 class AspectRatioScript(scripts.Script):
     def read_aspect_ratios(self):
@@ -107,16 +108,18 @@ class AspectRatioScript(scripts.Script):
             self.aspect_ratio_comments,
         ) = parse_aspect_ratios_file("aspect_ratios.txt")
         self.aspect_ratios = list(map(float, aspect_ratios))
-        
+
         # TODO: check for duplicates
-        
+
         # TODO: check for invalid values
 
         # TODO: use comments as tooltips
         # see https://github.com/alemelis/sd-webui-ar/issues/5
 
     def read_resolutions(self):
-        self.res_labels, res, self.res_comments = parse_resolutions_file("resolutions.txt")
+        self.res_labels, res, self.res_comments = parse_resolutions_file(
+            "resolutions.txt"
+        )
         self.res = [list(map(int, r)) for r in res]
 
     def title(self):
@@ -127,7 +130,7 @@ class AspectRatioScript(scripts.Script):
 
     def ui(self, is_img2img):
         self.read_aspect_ratios()
-        with gr.Row(elem_id="img2img_row_aspect_ratio"):
+        with gr.Row(elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'):
             btns = [
                 ARButton(ar=ar, value=label)
                 for ar, label in zip(
@@ -138,14 +141,19 @@ class AspectRatioScript(scripts.Script):
 
             with contextlib.suppress(AttributeError):
                 for b in btns:
+                    if is_img2img:
+                        resolution = [self.i2i_w, self.i2i_h]
+                    else:
+                        resolution = [self.t2i_w, self.t2i_h]
+
                     b.click(
                         b.apply,
-                        inputs=[self.w, self.h],
-                        outputs=[self.w, self.h],
+                        inputs=resolution,
+                        outputs=resolution,
                     )
 
         self.read_resolutions()
-        with gr.Row(elem_id="img2img_row_resolutions"):
+        with gr.Row(elem_id=f'{"img" if is_img2img else "txt"}2img_row_resolutions'):
             btns = [
                 ResButton(res=res, value=label)
                 for res, label in zip(self.res, self.res_labels)
@@ -153,14 +161,24 @@ class AspectRatioScript(scripts.Script):
 
             with contextlib.suppress(AttributeError):
                 for b in btns:
+                    if is_img2img:
+                        resolution = [self.i2i_w, self.i2i_h]
+                    else:
+                        resolution = [self.t2i_w, self.t2i_h]
+
                     b.click(
                         b.reset,
-                        outputs=[self.w, self.h],
+                        outputs=resolution,
                     )
 
     # https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/7456#issuecomment-1414465888
     def after_component(self, component, **kwargs):
         if kwargs.get("elem_id") == "txt2img_width":
-            self.w = component
+            self.t2i_w = component
         if kwargs.get("elem_id") == "txt2img_height":
-            self.h = component
+            self.t2i_h = component
+
+        if kwargs.get("elem_id") == "img2img_width":
+            self.i2i_w = component
+        if kwargs.get("elem_id") == "img2img_height":
+            self.i2i_h = component
