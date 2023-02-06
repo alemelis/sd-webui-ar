@@ -50,6 +50,7 @@ Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. The f
 
 Note the `#` marking the line as a comment, i.e. the extension is not reading that line. To use a custom value, un-comment the relative line by removing the starting `#`. 
 A custom aspect ratio is defined as `button-label, aspect-ratio-value # comment`. The `aspect-ratio-value` must be a number (either `float` or `int`) while the `# comment` is optional.
+The `button-label` will be displayed inside the button. It can be anything you like.
 
 Resolutions are defined inside `resolutions.txt` file. By default this reads
 
