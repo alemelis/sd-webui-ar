@@ -9,6 +9,16 @@ from modules.ui_components import ToolButton
 aspect_ratios_dir = scripts.basedir()
 
 
+class ResButton(ToolButton):
+    def __init__(self, res=512, **kwargs):
+        super().__init__(**kwargs)
+
+        self.res = res
+
+    def reset(self, w, h):
+        return [self.res, self.res]
+
+
 class ARButton(ToolButton):
     def __init__(self, ar=1.0, **kwargs):
         super().__init__(**kwargs)
@@ -17,43 +27,67 @@ class ARButton(ToolButton):
 
     def apply(self, w, h):
         if self.ar > 1.0:  # fix height, change width
-            w = self.ar*h
+            w = self.ar * h
         elif self.ar < 1.0:  # fix width, change height
-            h = self.ar*w
+            h = self.ar * w
         else:  # set minimum dimension to both
             min_dim = min([w, h])
             w, h = min_dim, min_dim
 
         return list(map(round, [w, h]))
 
+    def reset(self, w, h):
+        return [self.res, self.res]
+
+
+def parse_file(filename):
+    labels, values, comments = [], [], []
+    file = Path(aspect_ratios_dir, filename)
+
+    if not file.exists():
+        return labels, values, comments
+
+    with open(file, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    if not lines:
+        return labels, values, comments
+
+    for line in lines:
+        if line.startswith("#"):
+            continue
+
+        label, value = line.strip().split(",")
+        comment = ""
+        if "#" in value:
+            value, comment = value.split("#")[0]
+
+        labels.append(label)
+        values.append(value)
+        comments.append(comment)
+
+    return labels, values, comments
+
 
 class AspectRatioScript(scripts.Script):
-    aspect_ratios = [1, 3/2, 4/3, 16/9]
-    aspect_ratio_labels = ["1:1", "3:2", "4:3", "16:9"]
-
     def read_aspect_ratios(self):
-        aspect_ratios_file = Path(aspect_ratios_dir, "aspect_ratios.txt")
+        (
+            self.aspect_ratio_labels,
+            aspect_ratios,
+            self.aspect_ratio_comments,
+        ) = parse_file("aspect_ratios.txt")
+        self.aspect_ratios = list(map(float, aspect_ratios))
+        
+        # TODO: check for duplicates
+        
+        # TODO: check for invalid values
 
-        if not aspect_ratios_file.exists():
-            return
+        # TODO: use comments as tooltips
+        # see https://github.com/alemelis/sd-webui-ar/issues/5
 
-        with open(aspect_ratios_file, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-            
-        for line in lines:
-            if line.startswith('#'):
-                continue
-
-            label, ratio = line.strip().split(',')
-            if '#' in ratio:
-                ratio = ratio.split('#')[0]
-            ratio = float(ratio)
-
-            if label in self.aspect_ratio_labels or ratio in self.aspect_ratios:
-                continue
-
-            self.aspect_ratios.append(ratio)
-            self.aspect_ratio_labels.append(label)
+    def read_resolutions(self):
+        self.res_labels, res, self.res_comments = parse_file("resolutions.txt")
+        self.res = list(map(int, res))
 
     def title(self):
         return "Aspect Ratio picker"
@@ -64,17 +98,40 @@ class AspectRatioScript(scripts.Script):
     def ui(self, is_img2img):
         self.read_aspect_ratios()
         with gr.Row(elem_id="img2img_row_aspect_ratio"):
-            btns = [ARButton(ar=ar, value=label) for ar, label in zip(
-                self.aspect_ratios, self.aspect_ratio_labels)]
+            btns = [
+                ARButton(ar=ar, value=label)
+                for ar, label in zip(
+                    self.aspect_ratios,
+                    self.aspect_ratio_labels,
+                )
+            ]
 
             with contextlib.suppress(AttributeError):
                 for b in btns:
-                    b.click(b.apply, inputs=[self.w, self.h], outputs=[
-                            self.w, self.h])
+                    b.click(
+                        b.apply,
+                        inputs=[self.w, self.h],
+                        outputs=[self.w, self.h],
+                    )
+
+        self.read_resolutions()
+        with gr.Row(elem_id="img2img_row_resolutions"):
+            btns = [
+                ResButton(res=res, value=label)
+                for res, label in zip(self.res, self.res_labels)
+            ]
+
+            with contextlib.suppress(AttributeError):
+                for b in btns:
+                    b.click(
+                        b.reset,
+                        inputs=[self.w, self.h],
+                        outputs=[self.w, self.h],
+                    )
 
     # https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/7456#issuecomment-1414465888
     def after_component(self, component, **kwargs):
-        if kwargs.get('elem_id') == 'txt2img_width':
+        if kwargs.get("elem_id") == "txt2img_width":
             self.w = component
-        if kwargs.get('elem_id') == 'txt2img_height':
+        if kwargs.get("elem_id") == "txt2img_height":
             self.h = component
