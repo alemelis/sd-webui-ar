@@ -29,7 +29,7 @@ class ARButton(ToolButton):
         if self.ar > 1.0:  # fix height, change width
             w = self.ar * h
         elif self.ar < 1.0:  # fix width, change height
-            h = self.ar * w
+            h = w / self.ar
         else:  # set minimum dimension to both
             min_dim = min([w, h])
             w, h = min_dim, min_dim
