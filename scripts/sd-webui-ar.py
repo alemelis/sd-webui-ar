@@ -100,8 +100,34 @@ def parse_resolutions_file(filename):
     return labels, values, comments
 
 
+# TODO: write a generic function handling both cases
+def write_aspect_ratios_file(filename):
+    aspect_ratios = [
+        "1:1, 1.0\n",
+        "3:2, 1.5\n",
+        "4:3, 1.333\n",
+        "16:9, 1.777",
+    ]
+    with open(filename, "w", encoding="utf-8") as f:
+        f.writelines(aspect_ratios)
+
+
+def write_resolutions_file(filename):
+    resolutions = [
+        "1, 512, 512 # 1:1 square\n",
+        "2, 768, 512 # 3:2 landscape\n",
+        "3, 403, 716 # 9:16 portrait",
+    ]
+    with open(filename, "w", encoding="utf-8") as f:
+        f.writelines(resolutions)
+
+
 class AspectRatioScript(scripts.Script):
     def read_aspect_ratios(self):
+        ar_file = Path(aspect_ratios_dir, "aspect_ratios.txt")
+        if not ar_file.exists():
+            write_aspect_ratios_file(ar_file)
+
         (
             self.aspect_ratio_labels,
             aspect_ratios,
@@ -117,6 +143,10 @@ class AspectRatioScript(scripts.Script):
         # see https://github.com/alemelis/sd-webui-ar/issues/5
 
     def read_resolutions(self):
+        res_file = Path(aspect_ratios_dir, "resolutions.txt")
+        if not res_file.exists():
+            write_resolutions_file(res_file)
+
         self.res_labels, res, self.res_comments = parse_resolutions_file(
             "resolutions.txt"
         )

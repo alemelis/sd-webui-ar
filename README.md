@@ -2,6 +2,10 @@
 
 Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio selector buttons.
 
+## Updates
+
+- 20/02/2023 :warning: this update will remove your local config files (`aspect_ratios.txt` and `resolutions.txt`) and it will create new default ones. These can be then modified freely and preserved in the future. For more info read [here](https://github.com/alemelis/sd-webui-ar/issues/9).
+
 ## Install
 
 Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://github.com/alemelis/sd-webui-ar` -> click `Install`
@@ -18,7 +22,7 @@ Here's how the UI looks like after installing this extension
 
 ### Configuration
 
-Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. The file is pre-populated with the most common values
+Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. For example,
 
 ```
 1:1, 1.0
@@ -52,7 +56,7 @@ Note the `#` marking the line as a comment, i.e. the extension is not reading th
 A custom aspect ratio is defined as `button-label, aspect-ratio-value # comment`. The `aspect-ratio-value` must be a number (either `float` or `int`) while the `# comment` is optional.
 The `button-label` will be displayed inside the button. It can be anything you like.
 
-Resolutions are defined inside `resolutions.txt` file. By default this reads
+Resolutions presets are defined inside `resolutions.txt` file,
 
 ```
 1, 512, 512 # 1:1 square
