@@ -63,7 +63,7 @@ def parse_aspect_ratios_file(filename):
             value, comment = value.split("#")
 
         labels.append(label)
-        values.append(value)
+        values.append(eval(value))
         comments.append(comment)
 
     return labels, values, comments
@@ -104,9 +104,9 @@ def parse_resolutions_file(filename):
 def write_aspect_ratios_file(filename):
     aspect_ratios = [
         "1:1, 1.0\n",
-        "3:2, 1.5\n",
-        "4:3, 1.333\n",
-        "16:9, 1.777",
+        "3:2, 3/2\n",
+        "4:3, 4/3\n",
+        "16:9, 16/9",
     ]
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(aspect_ratios)
