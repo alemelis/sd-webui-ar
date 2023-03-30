@@ -13,7 +13,7 @@ Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://
 
 Here's how the UI looks like after installing this extension
 
-![](https://user-images.githubusercontent.com/4661737/216992603-7ca1b3d0-6317-4579-a4b0-68991e8ced45.png)
+<img width="666" alt="Screenshot 2023-03-30 at 20 37 56" src="https://user-images.githubusercontent.com/4661737/228946744-dbffc4c6-8a3f-4a42-8e47-1056b3558afc.png">
 
 ## Usage
 
