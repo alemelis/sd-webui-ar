@@ -1,0 +1,13 @@
+#txt2img_row_aspect_ratio button,
+#img2img_row_aspect_ratio button {
+	min-width: 2.5em !important;
+	max-width: fit-content !important;
+	margin: 0 0 0.25em 0 !important;
+}
+
+#txt2img_row_resolutions button,
+#img2img_row_resolutions button {
+	min-width: 2.5em !important;
+	max-width: fit-content !important;
+	margin: 0 0 0.25em 0 !important;
+}
