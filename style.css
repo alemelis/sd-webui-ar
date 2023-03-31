@@ -11,3 +11,13 @@
 	max-width: fit-content !important;
 	margin: 0 0 0.25em 0 !important;
 }
+
+/* Fix size and display of show/hide calculator buttons */
+button#arc_show_calculator_button,
+button#arc_hide_calculator_button {
+    min-width: 1.5em !important;
+	height: 1.25em;
+    flex-grow: 0;
+    font-size: 2rem;
+    padding: 0 0 .1em;
+}
