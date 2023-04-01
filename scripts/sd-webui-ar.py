@@ -6,6 +6,8 @@ import gradio as gr
 import modules.scripts as scripts
 from modules.ui_components import ToolButton
 
+from math import gcd
+
 aspect_ratios_dir = scripts.basedir()
 
 calculator_symbol = '\U0001F5A9'
@@ -127,25 +129,20 @@ def write_resolutions_file(filename):
         f.writelines(resolutions)
 
 
-## Functions for calculator panel
-def gcd(a, b):
-    if b == 0:
-        return a
-    return gcd(b, a % b)
-
-
 def get_reduced_ratio(n, d):
+    n, d = list(map(int, (n, d)))
+
     if n == d:
         return '1:1'
 
+    swapped = False
     if n < d:
-        temp = n
-        n = d
-        d = temp
+        n, d = d, n
+        swapped = True
 
-    div = gcd(int(n), int(d))
+    div = gcd(n, d)
 
-    if 'temp' not in locals():
+    if swapped:
         w = int(n) // div
         h = int(d) // div
     else:
@@ -252,7 +249,7 @@ class AspectRatioScript(scripts.Script):
                         outputs=resolution,
                     )
 
-        # dummy components needed for js function
+        # dummy components needed for JS function
         dummy_text1 = gr.Text(visible=False)
         dummy_text2 = gr.Text(visible=False)
         dummy_text3 = gr.Text(visible=False)
