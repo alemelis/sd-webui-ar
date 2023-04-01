@@ -71,7 +71,7 @@ Use the calculator to determine new width or height values based on the aspect r
 - Click calculator button to show or hide the aspect ratio calculator
 - Set the source dimensions:
   - Enter manually, or
-  - Click ⬇️ to set source dimentions to txt2img/img2img sliders, or
+  - Click ⬇️ to get source dimentions from txt2img/img2img sliders, or
   - Click 🖼️ to get source dimensions from input image component on the current tab
 - Click ⇅ to swap the width and height, if desired
 - Set the desired width or height, then click either `Calculate Height` or `Calculate Width` to calculate the missing value
