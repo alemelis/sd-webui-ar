@@ -65,3 +65,16 @@ Resolutions presets are defined inside `resolutions.txt` file,
 ```
 
 The format to be used is `button-label, width, height, # optional comment`. As before, lines starting with `#` will be ignored.
+
+## Calculator Panel
+Use the calculator to determine new width or height values based on the aspect ratio of source dimensions.
+- Click calculator button to show or hide the aspect ratio calculator
+- Set the source dimensions:
+  - Enter manually, or
+  - Click ⬇️ to set source dimentions to txt2img/img2img sliders, or
+  - Click 🖼️ to get source dimensions from input image component on the current tab
+- Click ⇅ to swap the width and height, if desired
+- Set the desired width or height, then click either `Calculate Height` or `Calculate Width` to calculate the missing value
+- Click `Apply` to send the values to the txt2txt/img2img sliders
+--- 
+<img width="666" style="border: solid 3px black;" alt="Basic usage of aspect ratio calculator" src="https://user-images.githubusercontent.com/121050401/229270384-c98b5c65-ac7a-497e-b468-a72c178e9417.gif">
