@@ -13,11 +13,12 @@
 }
 
 /* Fix size and display of show/hide calculator buttons */
-button#arc_show_calculator_button,
+button#arc_show_calculator_button {
+    padding: 0 .75em;
+	background-color: #ffffff;
+	--tw-gradient-from: #ffffff;
+	--tw-gradient-to: #ffffff;
+}
 button#arc_hide_calculator_button {
-    min-width: 1.5em !important;
-	height: 1.25em;
-    flex-grow: 0;
-    font-size: 2rem;
-    padding: 0 0 .1em;
+    padding: 0 .75em;
 }

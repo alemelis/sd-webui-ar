@@ -135,19 +135,13 @@ def get_reduced_ratio(n, d):
     if n == d:
         return '1:1'
 
-    swapped = False
-    if n < d:
-        n, d = d, n
-        swapped = True
-
-    div = gcd(n, d)
-
-    if swapped:
-        w = int(n) // div
-        h = int(d) // div
+    if n<d:
+        div = gcd (d, n)
     else:
-        w = int(d) // div
-        h = int(n) // div
+        div = gcd(n, d)
+
+    w = int(n) // div
+    h = int(d) // div
 
     if w == 8 and h == 5:
         w = 16
@@ -205,8 +199,8 @@ class AspectRatioScript(scripts.Script):
         self.read_aspect_ratios()
         with gr.Row(elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'):
             # Toggle calculator display button
-            arc_show_calculator = gr.Button(value=calculator_symbol, visible=True, variant="secondary", elem_id="arc_show_calculator_button")
-            arc_hide_calculator = gr.Button(value=calculator_symbol, visible=False, variant="primary", elem_id="arc_hide_calculator_button")
+            arc_show_calculator = gr.Button(value="Calc", visible=True, variant="secondary", elem_id="arc_show_calculator_button")
+            arc_hide_calculator = gr.Button(value="Calc", visible=False, variant="primary", elem_id="arc_hide_calculator_button")
 
             # Aspect Ratio buttons
             btns = [
@@ -257,7 +251,7 @@ class AspectRatioScript(scripts.Script):
 
         # Aspect Ratio Calculator
         with gr.Column(visible=False, variant="panel", elem_id="arc_panel") as arc_panel:
-            arc_title_heading = gr.Markdown(value="""#### Aspect Ratio Calculator""")
+            arc_title_heading = gr.Markdown(value="#### Aspect Ratio Calculator")
             with gr.Row():
                 with gr.Column(min_width=150):
                     arc_width1 = gr.Number(label="Width 1")
@@ -268,7 +262,7 @@ class AspectRatioScript(scripts.Script):
                     arc_desired_height = gr.Number(label="Height 2")
 
                 with gr.Column(min_width=150):
-                    arc_ar_display = gr.Markdown(value="""Aspect Ratio:""")
+                    arc_ar_display = gr.Markdown(value="Aspect Ratio:")
                     with gr.Row(elem_id=f'{"img" if is_img2img else "txt"}2img_arc_tool_buttons'):
                         # Switch resolution values button
                         arc_swap = ToolButton(value=switch_values_symbol)
@@ -329,8 +323,8 @@ class AspectRatioScript(scripts.Script):
                                 )
 
                 # Update aspect ratio display on change
-                arc_width1.change(lambda w, h: ("""Aspect Ratio: **{}**""".format(get_reduced_ratio(w,h))), inputs=[arc_width1, arc_height1], outputs=[arc_ar_display])
-                arc_height1.change(lambda w, h: ("""Aspect Ratio: **{}**""".format(get_reduced_ratio(w,h))), inputs=[arc_width1, arc_height1], outputs=[arc_ar_display])
+                arc_width1.change(lambda w, h: (f"Aspect Ratio: **{get_reduced_ratio(w,h)}**"), inputs=[arc_width1, arc_height1], outputs=[arc_ar_display])
+                arc_height1.change(lambda w, h: (f"Aspect Ratio: **{get_reduced_ratio(w,h)}**"), inputs=[arc_width1, arc_height1], outputs=[arc_ar_display])
 
             with gr.Row():
                 # Calculate and Apply buttons
@@ -355,7 +349,7 @@ class AspectRatioScript(scripts.Script):
         arc_show_calculator.click(
             lambda: [gr.update(visible=True), gr.update(visible=False), gr.update(visible=True),
                      gr.update(value=512), gr.update(value=512), gr.update(value=0), gr.update(value=0),
-                     gr.update(value="""Aspect Ratio: **1:1**""")], 
+                     gr.update(value="Aspect Ratio: **1:1**")], 
             None, 
             [arc_panel, arc_show_calculator, arc_hide_calculator,
              arc_width1, arc_height1, arc_desired_width, arc_desired_height,
@@ -379,8 +373,7 @@ class AspectRatioScript(scripts.Script):
             self.i2i_h = component
 
         if kwargs.get("elem_id") == "img2img_image":
-            self.image = []
-            self.image.append(component)
+            self.image = [component]
         if kwargs.get("elem_id") == "img2img_sketch":
             self.image.append(component)
         if kwargs.get("elem_id") == "img2maskimg":
