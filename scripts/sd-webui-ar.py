@@ -129,7 +129,7 @@ def write_resolutions_file(filename):
 
 
 def write_js_titles_file(button_titles):
-    filename = Path(aspect_ratios_dir + "\\javascript\\", "button_titles.js")
+    filename = Path(aspect_ratios_dir, "javascript", "button_titles.js")
     content = ["// Do not put custom titles here. This file is overwritten each time the WebUI is started.\n"]
     content.append("ar_button_titles = {\n")
     counter = 0
