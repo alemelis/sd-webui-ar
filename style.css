@@ -1,24 +1,29 @@
+#txt2img_container_aspect_ratio,
+#img2img_container_aspect_ratio {
+	gap: 5px !important;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+#txt2img_row_aspect_ratio,
+#txt2img_row_resolutions,
+#img2img_row_aspect_ratio,
+#img2img_row_resolutions {
+	gap: 8px;
+}
+
 #txt2img_row_aspect_ratio button,
-#img2img_row_aspect_ratio button {
-	min-width: 2.5em !important;
-	max-width: fit-content !important;
-	margin: 0 0 0.25em 0 !important;
-}
-
 #txt2img_row_resolutions button,
+#img2img_row_aspect_ratio button,
 #img2img_row_resolutions button {
-	min-width: 2.5em !important;
-	max-width: fit-content !important;
-	margin: 0 0 0.25em 0 !important;
+	gap: 10px !important;
+	max-width: unset !important;
 }
 
-/* Fix size and display of show/hide calculator buttons */
-button#arc_show_calculator_button {
-    padding: 0 .75em;
-	background-color: #ffffff;
-	--tw-gradient-from: #ffffff;
-	--tw-gradient-to: #ffffff;
-}
-button#arc_hide_calculator_button {
-    padding: 0 .75em;
+button#arc_show_calculator_button,
+button#arc_hide_calculator_button,
+#arc_empty_space {
+	max-width: 45px !important;
+	min-width: unset !important;
+	padding: var(--size-0-5) var(--size-2) !important;
 }

@@ -221,18 +221,9 @@ class AspectRatioScript(scripts.Script):
             with gr.Row(
                 elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'
             ):
-                # Toggle calculator display button
-                arc_show_calculator = gr.Button(
-                    value="Calc",
+                gr.HTML(
                     visible=True,
-                    variant="secondary",
-                    elem_id="arc_show_calculator_button",
-                )
-                arc_hide_calculator = gr.Button(
-                    value="Calc",
-                    visible=False,
-                    variant="primary",
-                    elem_id="arc_hide_calculator_button",
+                    elem_id="arc_empty_space",
                 )
 
                 # Aspect Ratio buttons
@@ -261,6 +252,20 @@ class AspectRatioScript(scripts.Script):
             with gr.Row(
                 elem_id=f'{"img" if is_img2img else "txt"}2img_row_resolutions'
             ):
+                # Toggle calculator display button
+                arc_show_calculator = gr.Button(
+                    value="Calc",
+                    visible=True,
+                    variant="secondary",
+                    elem_id="arc_show_calculator_button",
+                )
+                arc_hide_calculator = gr.Button(
+                    value="Calc",
+                    visible=False,
+                    variant="primary",
+                    elem_id="arc_hide_calculator_button",
+                )
+
                 btns = [
                     ResButton(res=res, value=label)
                     for res, label in zip(self.res, self.res_labels)
