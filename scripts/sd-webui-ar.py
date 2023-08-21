@@ -64,10 +64,17 @@ def parse_aspect_ratios_file(filename):
         if line.startswith("#"):
             continue
 
-        label, value = line.strip().split(",")
-        comment = ""
-        if "#" in value:
-            value, comment = value.split("#")
+        if ',' not in line:
+            continue
+
+        try:
+            label, value = line.strip().split(",")
+            comment = ""
+            if "#" in value:
+                value, comment = value.split("#")
+        except ValueError:
+            print(f"skipping badly formatted line in aspect ratios file: {line}")
+            continue
 
         labels.append(label)
         values.append(eval(value))
@@ -93,10 +100,17 @@ def parse_resolutions_file(filename):
         if line.startswith("#"):
             continue
 
-        label, width, height = line.strip().split(",")
-        comment = ""
-        if "#" in height:
-            height, comment = height.split("#")
+        if ',' not in line:
+            continue
+
+        try:
+            label, width, height = line.strip().split(",")
+            comment = ""
+            if "#" in height:
+                height, comment = height.split("#")
+        except ValueError:
+            print(f"skipping badly formatted line in resolutions file: {line}")
+            continue
 
         resolution = (width, height)
 
