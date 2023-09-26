@@ -430,17 +430,13 @@ class AspectRatioScript(scripts.Script):
 
                 with gr.Row():
                     # Calculate and Apply buttons
-                    arc_calc_height = gr.Button(value="Calculate Height").style(
-                        full_width=False
-                    )
+                    arc_calc_height = gr.Button(value="Calculate Height",scale=1)
                     arc_calc_height.click(
                         lambda w2, w1, h1: (solve_aspect_ratio(w2, 0, w1, h1)),
                         inputs=[arc_desired_width, arc_width1, arc_height1],
                         outputs=[arc_desired_height],
                     )
-                    arc_calc_width = gr.Button(value="Calculate Width").style(
-                        full_width=False
-                    )
+                    arc_calc_width = gr.Button(value="Calculate Width", scale=1)
                     arc_calc_width.click(
                         lambda h2, w1, h1: (solve_aspect_ratio(0, h2, w1, h1)),
                         inputs=[arc_desired_height, arc_width1, arc_height1],
