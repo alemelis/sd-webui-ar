@@ -18,6 +18,11 @@
 #img2img_row_resolutions button {
 	gap: 10px !important;
 	max-width: unset !important;
+	min-width: var(150px); /* 请替换 为您想要的最小宽度值 */
+	font-size: var(0.8em); /* 请替换 为您想要的字体大小 */
+	white-space: nowrap; /* 禁止换行 */	
+	overflow: hidden; /* 隐藏溢出内容 */
+	text-overflow: ellipsis; /* 超出部分用省略号显示 */
 }
 
 button#arc_show_calculator_button,

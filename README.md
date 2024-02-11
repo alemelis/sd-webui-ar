@@ -1,14 +1,18 @@
-# Stable Diffusion WebUI Aspect Ratio selector
+# Stable Diffusion WebUI 分辨率选择器-xhox
+# Stable Diffusion WebUI Aspect Ratio Resolutions selector
 
-Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio selector buttons.
+为[lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge.git), [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git)添加图片分辨率选择按钮。
 
-## Updates
+Extension for [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge.git), [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio resolutions selector buttons.
 
+## 更新 Updates
+
+- 11/02/2024 :添加常用的 SDXL 官方、SD1.5 和自定义分辨率，隐藏删除比例按钮。Add common resolutions, hide Delete aspect ratio button.
 - 20/02/2023 :warning: this update will remove your local config files (`aspect_ratios.txt` and `resolutions.txt`) and it will create new default ones. These can be then modified freely and preserved in the future. For more info read [here](https://github.com/alemelis/sd-webui-ar/issues/9).
 
 ## Install
 
-Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://github.com/alemelis/sd-webui-ar` -> click `Install`
+Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://github.com/xhoxye/sd-webui-ar_xhox` -> click `Install`
 
 
 Here's how the UI looks like after installing this extension
