@@ -438,19 +438,20 @@ class AspectRatioScript(scripts.Script): # 定义这个插件脚本的类
                                         outputs=resolution,
                                     )
 
+                    # 移除按钮的定义
                     # Toggle calculator display button 切换显示计算器的按钮
-                    arc_hide_calculator = gr.Button(
-                        value="Calc",
-                        visible=True,
-                        variant="primary",
-                        elem_id="arc_hide_calculator_button",
-                    )
-                    arc_show_calculator = gr.Button(
-                        value="Calc",
-                        visible=False,
-                        variant="secondary",
-                        elem_id="arc_show_calculator_button",
-                    )
+                    # arc_hide_calculator = gr.Button(
+                        # value="Calc",
+                        # visible=True,
+                        # variant="primary",
+                        # elem_id="arc_hide_calculator_button",
+                    # )
+                    # arc_show_calculator = gr.Button(
+                        # value="Calc",
+                        # visible=False,
+                        # variant="secondary",
+                        # elem_id="arc_show_calculator_button",
+                    # )
 
                     # Write button_titles.js with labels and comments read from aspect ratios and resolutions files 编写一个名为button_titles.js的文件，其中的标签和注释是从宽高比和分辨率文件中读取的
                     button_titles = [self.aspect_ratio_labels + self.res_labels]
@@ -611,40 +612,41 @@ class AspectRatioScript(scripts.Script): # 定义这个插件脚本的类
                                     outputs=resolution,
                                 )
 
+                    # 移除按钮的定义
                     # Show calculator pane (and reset number input values)  显示计算器面板（以及重置数字输入值），点击事件
-                    arc_show_calculator.click(
-                        lambda: [
-                            gr.update(visible=True),
-                            gr.update(visible=False),
-                            gr.update(visible=True),
-                            gr.update(value=512),
-                            gr.update(value=512),
-                            gr.update(value=0),
-                            gr.update(value=0),
-                            gr.update(value="Aspect Ratio: **1:1**"),
-                        ],
-                        None,
-                        [
-                            arc_panel,
-                            arc_show_calculator,
-                            arc_hide_calculator,
-                            arc_width1,
-                            arc_height1,
-                            arc_desired_width,
-                            arc_desired_height,
-                            arc_ar_display,
-                        ],
-                    )
+                    # arc_show_calculator.click(
+                        # lambda: [
+                            # gr.update(visible=True),
+                            # gr.update(visible=False),
+                            # gr.update(visible=True),
+                            # gr.update(value=512),
+                            # gr.update(value=512),
+                            # gr.update(value=0),
+                            # gr.update(value=0),
+                            # gr.update(value="Aspect Ratio: **1:1**"),
+                        # ],
+                        # None,
+                        # [
+                            # arc_panel,
+                            # arc_show_calculator,
+                            # arc_hide_calculator,
+                            # arc_width1,
+                            # arc_height1,
+                            # arc_desired_width,
+                            # arc_desired_height,
+                            # arc_ar_display,
+                        # ],
+                    # )
                     # Hide calculator pane 隐藏计算器面板
-                    arc_hide_calculator.click(
-                        lambda: [
-                            gr.update(visible=False),
-                            gr.update(visible=True),
-                            gr.update(visible=False),
-                        ],
-                        None,
-                        [arc_panel, arc_show_calculator, arc_hide_calculator],
-                    )
+                    # arc_hide_calculator.click(
+                        # lambda: [
+                            # gr.update(visible=False),
+                            # gr.update(visible=True),
+                            # gr.update(visible=False),
+                        # ],
+                        # None,
+                        # [arc_panel, arc_show_calculator, arc_hide_calculator],
+                    # )
 
     # https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/7456#issuecomment-1414465888
     def after_component(self, component, **kwargs):
