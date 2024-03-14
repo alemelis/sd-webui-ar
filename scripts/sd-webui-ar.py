@@ -160,7 +160,7 @@ def write_resolutions_file(filename, resolution_type): # 该函数的功能是�
     if resolution_type == "SD15":
         resolutions = [
             # ... SD1.5 分辨率的列表 ...
-            "#1024*1024 # 1:1 square SDXL方形。这一行是格式示例，以下列表不建议修改，推荐修改使用自定义分辨率的文件",
+            "#1024*1024 # 1:1 square.This line is a formatting example; the following list is not recommended for modification. It is suggested to modify and use files with custom resolutions.",
             "512*512",
             "512*768",
             "768*512",
@@ -171,7 +171,7 @@ def write_resolutions_file(filename, resolution_type): # 该函数的功能是�
     elif resolution_type == "Custom":
         resolutions = [
             # ... 自定义分辨率的列表 ...
-            "#1024*1024 # 1:1 square SDXL方形。这一行是格式示例，推荐修改使用",
+            "#1024*1024 # 1:1 square.This line is a formatting example; the following list is recommended for modification.",
             "640*480",
             "480*640",
             "1280*720",
@@ -182,7 +182,7 @@ def write_resolutions_file(filename, resolution_type): # 该函数的功能是�
     elif resolution_type == "SDXL":
         resolutions = [
             # ... SDXL分辨率的列表 ...
-            "#1024*1024 # 1:1 square SDXL方形。这一行是格式示例，以下列表不建议修改，推荐修改使用自定义分辨率的文件",
+            "#1024*1024 # 1:1 square.This line is a formatting example; the following list is not recommended for modification. It is suggested to modify and use files with custom resolutions.",
             "704*1408",
             "704*1344",
             "768*1344",

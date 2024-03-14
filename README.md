@@ -9,7 +9,7 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 
 ## Install
 
-Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://github.com/xhoxye/sd-webui-ar_xhox` -> click `Install`
+Browse to the `Extensions` tab -> go to `Install from URL` -> paste in `https://github.com/alemelis/sd-webui-ar` -> click `Install`
 
 
 Here's how the UI looks like after installing this extension
